@@ -1,16 +1,20 @@
-import {useState, useEffect} from "react"
-import '../styles/App.css';
+import React from 'react';
+import { Routes, Route } from "react-router-dom";
 
 
-function App() {
-
-
+import Home from '../pages/Home';
+import Navbar from './Navbar';
+import Postings from '../pages/Postings';
+const App = () => {
 
   return (
-    <>
-    <div className="App">
+    <div className="fixed min-h-screen overflow-y-auto w-full bg-gradient-to-br from-indigo-50 via-white to-cyan-100">
+        <Navbar/>
+        <Routes>
+          <Route path="/postings" element={<Postings />} />
+          <Route path="*" element={<Home />} />
+        </Routes>
     </div>
-    </>
   );
 }
 
