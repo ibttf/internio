@@ -6,8 +6,14 @@
 /frontend/.env
 /frontend/package-lock.json
 /frontend/.pnp
-.pnp.js
 /frontend/src/config
+*.pyc
+*__pycache__/
+/back/db.sqlite3
+/back/myenv/
+/back/env
+/back/pnp.js
+
 # testing
 /coverage
 

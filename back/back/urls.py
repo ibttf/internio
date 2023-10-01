@@ -14,9 +14,11 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
+# urls.py
 from django.urls import path
+from Scraper.views import get_job_listings, scrape_and_create_job
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
+    path('joblistings/', get_job_listings, name='joblisting-view'),
+    path('joblistings/<int:pk>/', scrape_and_create_job, name='joblisting-create'),
 ]
