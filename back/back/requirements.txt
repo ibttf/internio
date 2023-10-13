@@ -2,4 +2,4 @@
 django==3.2.9  # You can replace this with the specific version you're using.
 djangorestframework==3.12.4  # You can replace this with the specific version you're using.
 django-cors-headers==3.10.0  # You can replace this with the specific version you're using.
-Scraper  # Replace 'x.x.x' with the version of the Scraper package you're using.
+Scraper 
