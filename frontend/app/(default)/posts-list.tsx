@@ -1,6 +1,6 @@
 import getAllPosts from "@/lib/getAllPosts";
 import PostItem from "./post-item";
-import { JSX, use } from "react";
+import { use } from "react";
 interface Post {
   id: number;
   sticky: boolean;
@@ -23,6 +23,7 @@ export default function PostsList() {
     <div className="pb-8 md:pb-16">
       <h2 className="text-3xl font-bold font-inter mb-10">Latest jobs</h2>
       {/* List container */}
+      {/* @ts-expect-error Server Component */}
       <div className="flex flex-col">
         {posts.map((post: Post) => {
           return <PostItem key={post.id} {...post} />;
