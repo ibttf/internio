@@ -24,7 +24,7 @@ export default function PostsList() {
       <h2 className="text-3xl font-bold font-inter mb-10">Latest jobs</h2>
       {/* List container */}
       <div className="flex flex-col">
-        {posts.map((post: any) => {
+        {posts.map((post: Post) => {
           return <PostItem key={post.id} {...post} />;
         })}
       </div>
