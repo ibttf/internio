@@ -3,6 +3,6 @@ from .models import JobListings
 
 @admin.register(JobListings)
 class JobListingAdmin(admin.ModelAdmin):
-    list_display = ['title', 'description']
+    list_display = ['title']
     search_fields = ['title']
     list_filter = ['title']

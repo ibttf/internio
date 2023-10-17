@@ -4,4 +4,4 @@ from .models import JobListings
 class JobListingSerializer(serializers.ModelSerializer):
     class Meta:
         model = JobListings
-        fields = '__all__'
+        fields = ('title', 'company', 'company_link','location', 'apply_link', 'sponsorship', 'closed', 'categories')
