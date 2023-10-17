@@ -1,5 +1,7 @@
-# requirements.txt
-django==3.2.9  # You can replace this with the specific version you're using.
-djangorestframework==3.12.4  # You can replace this with the specific version you're using.
-django-cors-headers==3.10.0  # You can replace this with the specific version you're using.
-Scraper 
+django==3.2.9
+djangorestframework==3.12.4
+django-cors-headers==3.10.0
+django-rest-knox==4.1.0
+celery==5.2.3
+beautifulsoup4==4.10.0
+requests==2.26.0

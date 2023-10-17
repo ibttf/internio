@@ -27,8 +27,19 @@ SECRET_KEY = "django-insecure-0p1xl4)+u+l)%%scg8aq%=r90+k+^6#w2*i4-o^sf6v9kvqwpc
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
-
+# Celery configurations
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'UTC-7'
+CELERY_BEAT_SCHEDULE = {
+    'scrape-and-create-job-every-2-hours': {
+        'task': 'back.tasks.scrape_and_create_job',
+        'schedule': 7200,  # 2 hours in seconds
+    },
+}
 # Application definition
 
 INSTALLED_APPS = [
