@@ -10,7 +10,6 @@ export default function Home() {
   return (
     <>
       <Hero />
-      {/* <PressLogos /> */}
 
       {/*  Page content */}
       <section>
@@ -22,7 +21,6 @@ export default function Home() {
               {/* Main content */}
               <div className="md:grow">
                 <PostsList />
-                {/* <Testimonials /> */}
               </div>
             </div>
           </div>
