@@ -5,13 +5,14 @@ import getAllPosts from "@/lib/getAllPosts";
 
 interface Post {
   id: number;
-  sticky: boolean;
   title: string;
-  name: string;
-  image: string;
-  tag1: string;
-  tag2: string;
-  date: string;
+  company: string;
+  company_link: string;
+  location: string;
+  apply_link: string;
+  sponsorship: boolean;
+  closed: boolean;
+  categories: string[];
 }
 
 export default function PostsList() {
@@ -21,6 +22,7 @@ export default function PostsList() {
     async function fetchPosts() {
       const res = await getAllPosts();
       const data = await res;
+      console.log(data);
       setPosts(data);
     }
     fetchPosts();
