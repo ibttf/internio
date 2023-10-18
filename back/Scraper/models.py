@@ -13,6 +13,7 @@ class JobListings(models.Model):
     apply_link = models.URLField(max_length=500, default='',blank=True, null=True)
     sponsorship=models.BooleanField(default=False)
     closed=models.BooleanField(default=False)
+    date = models.CharField(max_length=500, default='')
     categories = ArrayField(models.CharField(max_length=100), blank=True, default=list)
 
     def __str__(self):

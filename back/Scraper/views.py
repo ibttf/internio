@@ -12,7 +12,7 @@ from rest_framework import status
 from celery import shared_task
 
 @api_view(['GET', 'POST'])
-def get_or_create_job_listings(request):
+def get_job_listings(request):
     if (request.method == 'GET'):
         jobs = JobListings.objects.all()
         serializer = JobListingSerializer(jobs, many=True)
@@ -30,20 +30,22 @@ def get_or_create_job_listings(request):
 @shared_task
 def scrape_and_create_job():
     word_categories={
-        "intern": "Internship",
-        "co-op": "Co-op",
-        "machine learning": "Machine Learning",
-        "ml": "Machine Learning",
-        "artifical intelligence": "Machine Learning",
-        "software": "Software Engineering",
-        "data": "Data Science",
-        "research": "Research",
-
+    "intern": "Internship",
+    "co-op": "Co-op",
+    "machine learning": "Machine Learning",
+    "ml": "Machine Learning",
+    "artifical intelligence": "Machine Learning",
+    "software": "Software Engineering",
+    "data": "Data Science",
+    "research": "Research",
     }
 
     page = requests.get("https://github.com/SimplifyJobs/Summer2024-Internships")
     soup = BeautifulSoup(page.content, 'html.parser')
     job_listings = []
+    # List to keep track of failed creations
+    failed_creations = []
+    
     for row in soup.find_all('tr'):
         cols = row.find_all('td')
         
@@ -61,12 +63,16 @@ def scrape_and_create_job():
             final_company_link = company_link['href']
         
         # Extract Job Title, Location, Date
-        requires_sponsorship=False
+        company_requires_sponsorship=False
 
         #check if requires sponsorship
         job_title = cols[1].get_text(strip=True)
+
         if "🛂" in job_title:
-            requires_sponsorship=True
+            # this line of code isn't working for some reason. It's not reupdating the value of the company_requires_sponsorship variable.
+            job_title=job_title.replace("🛂","")
+            company_requires_sponsorship=True
+
 
         #check categories this belongs to
         categories=[]
@@ -101,8 +107,7 @@ def scrape_and_create_job():
             company=job_listings[i]["company"]
             company_link=job_listings[i]["company_link"]
 
-            
-        job_listings.append({
+        job={
             "company": company,
             "company_link":final_company_link,
             "title": job_title,
@@ -110,14 +115,11 @@ def scrape_and_create_job():
             "apply_link": apply_link,
             "date": date,
             "closed": is_closed,
-            "requires_sponsorship": requires_sponsorship,
+            "sponsorship": company_requires_sponsorship,
             "categories": categories
-})
-    # List to keep track of failed creations
-    failed_creations = []
-    
-    # Save the scraped data as new job listings
-    for job in job_listings:
+        }
+        job_listings.append(job)
+
         existing_job = JobListings.objects.filter(apply_link=job['apply_link']).first()
         if not existing_job:
             job_serializer = JobListingSerializer(data=job)
@@ -128,9 +130,27 @@ def scrape_and_create_job():
                 failed_job = job
                 failed_job["errors"] = job_serializer.errors
                 failed_creations.append(failed_job)
+        else:
+            # the job already exists. 
+            updated = False  # flag to check if an update is needed
+            
+            # check if there is any change in the application status
+            if is_closed != existing_job.closed:
+                existing_job.closed = is_closed
+                updated = True
+                
+            # check if there is any change in the sponsorship status and change
+            if company_requires_sponsorship != existing_job.sponsorship:
+                existing_job.sponsorship = company_requires_sponsorship
+                updated = True
+
+            # Save only once if any updates were made
+            if updated:
+                existing_job.save()
 
     # Return a JsonResponse with the number of successful and failed creations
     if not failed_creations:
         return JsonResponse({"message": "All job listings created successfully."}, status=status.HTTP_201_CREATED)
     else:
         return JsonResponse({"message": f"{len(failed_creations)} job listings failed to be created.", "details": failed_creations}, status=status.HTTP_400_BAD_REQUEST)
+

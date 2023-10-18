@@ -16,8 +16,8 @@ Including another URLconf
 """
 # urls.py
 from django.urls import path
-from Scraper.views import get_or_create_job_listings
+from Scraper.views import get_job_listings
 
 urlpatterns = [
-    path('joblistings', get_or_create_job_listings),
+    path('joblistings', get_job_listings),
 ]
