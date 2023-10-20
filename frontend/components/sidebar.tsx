@@ -16,12 +16,14 @@ interface SidebarProps {
     swe: boolean;
     datascience: boolean;
     research: boolean;
+    machinelearning: boolean;
   };
   setJobRoles: React.Dispatch<
     React.SetStateAction<{
       swe: boolean;
       datascience: boolean;
       research: boolean;
+      machinelearning: boolean;
     }>
   >;
   sponsorship: boolean;
@@ -160,6 +162,24 @@ export default function Sidebar({
                       }
                     />
                     <span className="text-sm text-gray-600 ml-2">Research</span>
+                  </label>
+                </li>
+                <li>
+                  <label className="flex items-center">
+                    <input
+                      type="checkbox"
+                      className="form-checkbox"
+                      checked={jobRoles.machinelearning}
+                      onChange={() =>
+                        setJobRoles((prev) => ({
+                          ...prev,
+                          machinelearning: !prev.machinelearning,
+                        }))
+                      }
+                    />
+                    <span className="text-sm text-gray-600 ml-2">
+                      Machine Learning
+                    </span>
                   </label>
                 </li>
               </ul>

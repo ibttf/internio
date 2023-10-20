@@ -33,12 +33,13 @@ export default function PostsList() {
     swe: true, // set to true because it's defaultChecked in your code
     datascience: false,
     research: false,
+    machinelearning: false,
   });
 
   // Location
   const [location, setLocation] = useState("Anywhere");
 
-  // Location
+  // Sponsorship
   const [sponsorship, setSponsorship] = useState(false);
 
   const handleFilterClear = () => {
@@ -50,6 +51,7 @@ export default function PostsList() {
       swe: false,
       datascience: false,
       research: false,
+      machinelearning: false,
     });
 
     setLocation("Anywhere");
@@ -113,7 +115,9 @@ export default function PostsList() {
     if (
       (jobRoles.swe && !post.categories.includes("Software Engineering")) ||
       (jobRoles.datascience && !post.categories.includes("Data Science")) ||
-      (jobRoles.research && !post.categories.includes("Research"))
+      (jobRoles.research && !post.categories.includes("Research")) ||
+      (jobRoles.machinelearning &&
+        !post.categories.includes("Machine Learning"))
     ) {
       return false;
     }
