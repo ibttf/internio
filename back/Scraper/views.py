@@ -1,5 +1,7 @@
 from .models import JobListings
 from .serializers import JobListingSerializer
+from .models import Emails
+from .serializers import EmailSerializer 
 from bs4 import BeautifulSoup
 import re
 import requests
@@ -24,10 +26,31 @@ def get_job_listings(request):
 
 
 
+# Handle the GET and POST requests
+@api_view(['GET', 'POST'])
+def get_or_create_email(request):
+    if request.method == 'GET':
+        emails = Emails.objects.all()
+        serializer = EmailSerializer(emails, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK, content_type='application/json')
+    
+    elif request.method == 'POST':
+        # Create a new email record
+        serializer = EmailSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED, content_type='application/json')
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST, content_type='application/json')
 
-
-
-
+# Handle the DELETE request
+@api_view(['DELETE'])
+def delete_email(request, email):
+    try:
+        email_instance = Emails.objects.get(email=email)
+        email_instance.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+    except Emails.DoesNotExist:
+        return Response({"error": "Email not found."}, status=status.HTTP_404_NOT_FOUND)
 @shared_task
 def scrape_and_create_job():
         word_categories={
@@ -76,6 +99,23 @@ def scrape_and_create_job():
                 is_closed=True #should've been accounted for earlier, but just in case it's not already done, then check if closed.
 
 
+
+            # COMPANY NAME HANDLING
+            company = cols[0].get_text(strip=True)
+
+
+
+
+            #CATEGORIES HANDLING
+            categories=[]
+            for key in word_categories:
+                if key in job_title.lower():
+                    categories.append(word_categories[key])
+                    
+
+
+
+
             #JOB TITLE HANDLING
             #check if requires sponsorship
             job_title = cols[1].get_text(strip=True)
@@ -104,19 +144,6 @@ def scrape_and_create_job():
                 if updated:
                     existing_job.save()
 
-
-            # COMPANY NAME HANDLING
-            company = cols[0].get_text(strip=True)
-
-
-
-
-            #CATEGORIES HANDLING
-            categories=[]
-            for key in word_categories:
-                if key in job_title.lower():
-                    categories.append(word_categories[key])
-                    
 
 
 
@@ -213,6 +240,7 @@ def scrape_and_create_job():
                 })
                 if job_serializer.is_valid():
                     job_serializer.save()
+                    
                 else:
                     # If serialization failed, store the job details for debugging purposes
                     failed_job = {

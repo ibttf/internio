@@ -16,8 +16,10 @@ Including another URLconf
 """
 # urls.py
 from django.urls import path
-from Scraper.views import get_job_listings
+from Scraper.views import get_job_listings, get_or_create_email, delete_email
 
 urlpatterns = [
     path('joblistings', get_job_listings),
+    path('emails',get_or_create_email),
+    path('emails/<str:email>',delete_email)
 ]
