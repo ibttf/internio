@@ -3,6 +3,8 @@ djangorestframework==3.12.4
 django-cors-headers==3.10.0
 django-rest-knox==4.1.0
 celery==5.2.3
+redis==3.4.1
+psycopg2==2.9.9
 beautifulsoup4==4.10.0
 requests==2.26.0
-environ
+decouple==0.0.7

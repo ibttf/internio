@@ -1,0 +1,44 @@
+version: "3"
+
+services:
+  back:
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/back
+    command: >
+      sh -c "python3 manage.py migrate && python3 manage.py wait_for_db && python3 manage.py runserver 0.0.0.0:8000"
+
+    depends_on:
+      - db
+      - redis
+    env_file:
+      - ./.env.dev
+
+  db:
+    image: postgres:13
+    env_file:
+      - ./.env.dev
+    ports:
+      - "5432:5432"
+
+  celery:
+    restart: always
+    build:
+      context: .
+
+    command: celery -A back worker --loglevel=info
+    volumes:
+      - .:/back
+    env_file:
+      - ./.env.dev
+    depends_on:
+      - db
+      - redis
+
+  redis:
+    image: redis:latest
