@@ -247,7 +247,7 @@ export default function Sidebar({
                 <option>London</option>
                 <option>San Francisco</option>
                 <option>New York</option>
-                <option>Berlin</option>
+                <option>Los Angeles</option>
               </select>
             </div>
           </div>
