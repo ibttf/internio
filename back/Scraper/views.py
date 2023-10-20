@@ -12,7 +12,6 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import status
 from celery import shared_task
-from decouple import config
 
 
 @api_view(['GET', 'POST'])

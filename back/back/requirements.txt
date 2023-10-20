@@ -7,4 +7,3 @@ redis==3.4.1
 psycopg2==2.9.9
 beautifulsoup4==4.10.0
 requests==2.26.0
-decouple==0.0.7
