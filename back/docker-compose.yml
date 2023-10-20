@@ -18,6 +18,7 @@ services:
       - redis
     env_file:
       - ./.env.dev
+      - ./.env
 
   db:
     image: postgres:13
