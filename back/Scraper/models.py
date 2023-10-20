@@ -9,7 +9,7 @@ class JobListings(models.Model):
     title = models.CharField(max_length=500, default='')
     company = models.CharField(max_length=500, default='')
     company_link =  models.URLField(default='', blank=True, null=True)
-    location = models.CharField(max_length=10000, default='')
+    locations = ArrayField(models.CharField(max_length=1000, blank=True), blank=True, null=True, default=list)
     apply_link = models.URLField(max_length=500, default='',blank=True, null=True)
     sponsorship=models.BooleanField(default=False)
     closed=models.BooleanField(default=False)
