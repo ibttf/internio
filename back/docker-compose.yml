@@ -24,6 +24,7 @@ services:
     image: postgres:13
     env_file:
       - ./.env.dev
+      - ./.env
     ports:
       - "5432:5432"
 
@@ -37,6 +38,7 @@ services:
       - .:/back
     env_file:
       - ./.env.dev
+      - ./.env
     depends_on:
       - db
       - redis
