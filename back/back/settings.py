@@ -120,7 +120,7 @@ EMAIL_HOST =  'smtp.gmail.com'
 EMAIL_PORT = 587  # Use the appropriate port
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'noreplyinternio@example.com'
-EMAIL_HOST_PASSWORD = config('EMAIL_PASS')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASS')
 
 
 # Password validation

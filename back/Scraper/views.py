@@ -3,6 +3,7 @@ from .serializers import JobListingSerializer
 from .models import Emails
 from .serializers import EmailSerializer 
 from bs4 import BeautifulSoup
+import os
 import re
 import requests
 from django.http.response import JsonResponse
@@ -176,7 +177,7 @@ def get_job_listings(request):
                 # We've never seen this before, then we'll make a new one, ONLY calling the API here.
                 if not existing_company:
                     # If we haven't seen this company before, then we'll add it to the map
-                    link = requests.get(f"https://company.clearbit.com/v1/domains/find?name={company}",auth=(config('CLEARBIT_KEY'),''))
+                    link = requests.get(f"https://company.clearbit.com/v1/domains/find?name={company}",auth=(os.environ.get('CLEARBIT_KEY'),''))
                     if link.status_code == 200:
                         link_data = link.json()
                         if link_data["domain"] and link_data["logo"]:
@@ -418,7 +419,7 @@ def scrape_and_create_job():
                 # We've never seen this before, then we'll make a new one, ONLY calling the API here.
                 if not existing_company:
                     # If we haven't seen this company before, then we'll add it to the map
-                    link = requests.get(f"https://company.clearbit.com/v1/domains/find?name={company}",auth=(config('CLEARBIT_KEY'),''))
+                    link = requests.get(f"https://company.clearbit.com/v1/domains/find?name={company}",auth=(os.environ.get('CLEARBIT_KEY'),''))
                     if link.status_code == 200:
                         link_data = link.json()
                         if link_data["domain"] and link_data["logo"]:
