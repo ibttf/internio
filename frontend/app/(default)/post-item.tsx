@@ -63,9 +63,9 @@ export default function PostItem({ ...props }) {
 
         <div className="flex items-center space-x-5">
           <div className="flex-shrink-0">
-            {props.image ? (
+            {props.company_logo ? (
               <img
-                src={props.image}
+                src={props.company_logo}
                 width="64"
                 height="64"
                 alt={props.company}

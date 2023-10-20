@@ -8,6 +8,7 @@ interface Post {
   title: string;
   company: string;
   company_link: string;
+  company_logo: string;
   locations: string[];
   apply_link: string;
   sponsorship: boolean;

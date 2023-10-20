@@ -8,7 +8,8 @@ class Category(models.Model):
 class JobListings(models.Model):
     title = models.CharField(max_length=500, default='')
     company = models.CharField(max_length=500, default='')
-    company_link =  models.URLField(default='', blank=True, null=True)
+    company_link = models.CharField(max_length=500, default='', blank=True, null=True)
+    company_logo = models.CharField(max_length=500, default='', blank=True, null=True)
     locations = ArrayField(models.CharField(max_length=1000, blank=True), blank=True, null=True, default=list)
     apply_link = models.URLField(max_length=500, default='',blank=True, null=True)
     sponsorship=models.BooleanField(default=False)

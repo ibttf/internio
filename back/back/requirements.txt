@@ -5,3 +5,4 @@ django-rest-knox==4.1.0
 celery==5.2.3
 beautifulsoup4==4.10.0
 requests==2.26.0
+environ

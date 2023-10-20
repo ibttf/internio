@@ -13,6 +13,7 @@
 /back/myenv/
 /back/env
 /back/pnp.js
+/back/back/.env
 
 # testing
 /coverage

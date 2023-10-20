@@ -3,7 +3,6 @@ export const metadata = {
   description: "Find your dream internship today.",
 };
 import Hero from "@/components/hero";
-import Sidebar from "@/components/sidebar";
 import PostsList from "./posts-list";
 
 export default function Home() {
