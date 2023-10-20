@@ -77,7 +77,7 @@ export default function PostsList() {
     if (
       location &&
       location !== "Anywhere" &&
-      !post.locations.includes(location)
+      !post.locations.some((loc) => loc.includes(location))
     ) {
       return false;
     }
