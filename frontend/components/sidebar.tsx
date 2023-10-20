@@ -1,54 +1,49 @@
-"use client";
-
-import { useState } from "react";
-
-export default function Sidebar() {
-  const [remoteJob, setRemoteJob] = useState<boolean>(false);
-
-  // Job Type
-  const [jobTypes, setJobTypes] = useState({
-    fullTime: false,
-    partTime: false,
-    internship: false,
-  });
-
-  // Job Roles
-  const [jobRoles, setJobRoles] = useState({
-    swe: true, // set to true because it's defaultChecked in your code
-    datascience: false,
-  });
-
-  // Salary Range
-  const [salaryRanges, setSalaryRanges] = useState({
-    range1: false,
-    range2: false,
-    range3: false,
-    drawing: false,
-  });
-
-  // Location
-  const [location, setLocation] = useState("Anywhere");
-
-  const handleFilterClear = () => {
-    setJobTypes({
-      fullTime: false,
-      partTime: false,
-      internship: false,
-    });
-    setJobRoles({
-      swe: false,
-      datascience: false,
-    });
-    setSalaryRanges({
-      range1: false,
-      range2: false,
-      range3: false,
-      drawing: false,
-    });
-    setLocation("Anywhere");
-    setRemoteJob(false);
+interface SidebarProps {
+  handleFilterClear: () => void;
+  remoteJob: boolean;
+  setRemoteJob: React.Dispatch<React.SetStateAction<boolean>>;
+  jobTypes: {
+    internship: boolean;
+    coop: boolean;
   };
+  setJobTypes: React.Dispatch<
+    React.SetStateAction<{
+      internship: boolean;
+      coop: boolean;
+    }>
+  >;
+  jobRoles: {
+    swe: boolean;
+    datascience: boolean;
+    research: boolean;
+  };
+  setJobRoles: React.Dispatch<
+    React.SetStateAction<{
+      swe: boolean;
+      datascience: boolean;
+      research: boolean;
+    }>
+  >;
+  sponsorship: boolean;
+  setSponsorship: React.Dispatch<React.SetStateAction<boolean>>;
 
+  location: string;
+  setLocation: React.Dispatch<React.SetStateAction<string>>;
+}
+
+export default function Sidebar({
+  remoteJob,
+  setRemoteJob,
+  jobTypes,
+  setJobTypes,
+  jobRoles,
+  setJobRoles,
+  sponsorship,
+  setSponsorship,
+  location,
+  setLocation,
+  handleFilterClear,
+}: SidebarProps) {
   return (
     <aside className="mb-8 md:mb-0 md:w-64 lg:w-72 md:ml-12 lg:ml-20 md:shrink-0 md:order-1">
       <div
@@ -78,42 +73,6 @@ export default function Sidebar() {
                     <input
                       type="checkbox"
                       className="form-checkbox"
-                      checked={jobTypes.fullTime}
-                      onChange={() =>
-                        setJobTypes((prev) => ({
-                          ...prev,
-                          fullTime: !prev.fullTime,
-                        }))
-                      }
-                    />
-                    <span className="text-sm text-gray-600 ml-2">
-                      Full-time
-                    </span>
-                  </label>
-                </li>
-                <li>
-                  <label className="flex items-center">
-                    <input
-                      type="checkbox"
-                      className="form-checkbox"
-                      checked={jobTypes.partTime}
-                      onChange={() =>
-                        setJobTypes((prev) => ({
-                          ...prev,
-                          partTime: !prev.partTime,
-                        }))
-                      }
-                    />
-                    <span className="text-sm text-gray-600 ml-2">
-                      Part-time
-                    </span>
-                  </label>
-                </li>
-                <li>
-                  <label className="flex items-center">
-                    <input
-                      type="checkbox"
-                      className="form-checkbox"
                       checked={jobTypes.internship}
                       onChange={() =>
                         setJobTypes((prev) => ({
@@ -125,6 +84,22 @@ export default function Sidebar() {
                     <span className="text-sm text-gray-600 ml-2">
                       Internship
                     </span>
+                  </label>
+                </li>
+                <li>
+                  <label className="flex items-center">
+                    <input
+                      type="checkbox"
+                      className="form-checkbox"
+                      checked={jobTypes.coop}
+                      onChange={() =>
+                        setJobTypes((prev) => ({
+                          ...prev,
+                          coop: !prev.coop,
+                        }))
+                      }
+                    />
+                    <span className="text-sm text-gray-600 ml-2">Co-Op</span>
                   </label>
                 </li>
               </ul>
@@ -171,6 +146,22 @@ export default function Sidebar() {
                     </span>
                   </label>
                 </li>
+                <li>
+                  <label className="flex items-center">
+                    <input
+                      type="checkbox"
+                      className="form-checkbox"
+                      checked={jobRoles.research}
+                      onChange={() =>
+                        setJobRoles((prev) => ({
+                          ...prev,
+                          research: !prev.research,
+                        }))
+                      }
+                    />
+                    <span className="text-sm text-gray-600 ml-2">Research</span>
+                  </label>
+                </li>
               </ul>
             </div>
             {/* Remote Only */}
@@ -197,67 +188,29 @@ export default function Sidebar() {
                 </div>
               </div>
             </div>
-            {/* Salary Range */}
+            {/* Requires Sponsorship */}
             <div>
               <div className="text-sm text-gray-800 font-semibold mb-3">
-                Hourly Salary Range
+                Doesn't Require Sponsorship
               </div>
-              <ul className="space-y-2">
-                <li>
-                  <label className="flex items-center">
-                    <input
-                      type="checkbox"
-                      className="form-checkbox"
-                      checked={salaryRanges.range1}
-                      onChange={() =>
-                        setSalaryRanges((prev) => ({
-                          ...prev,
-                          range1: !prev.range1,
-                        }))
-                      }
-                    />
-                    <span className="text-sm text-gray-600 ml-2">
-                      $20 - $50
-                    </span>
+              <div className="flex items-center">
+                <div className="form-switch">
+                  <input
+                    type="checkbox"
+                    id="sponsorship-toggle"
+                    className="sr-only"
+                    checked={sponsorship}
+                    onChange={() => setSponsorship(!sponsorship)}
+                  />
+                  <label className="bg-gray-300" htmlFor="sponsorship-toggle">
+                    <span className="bg-white shadow-sm" aria-hidden="true" />
+                    <span className="sr-only">Doesn't Require Sponsorship</span>
                   </label>
-                </li>
-                <li>
-                  <label className="flex items-center">
-                    <input
-                      type="checkbox"
-                      className="form-checkbox"
-                      checked={salaryRanges.range2}
-                      onChange={() =>
-                        setSalaryRanges((prev) => ({
-                          ...prev,
-                          range2: !prev.range2,
-                        }))
-                      }
-                    />
-                    <span className="text-sm text-gray-600 ml-2">
-                      $50 - $100
-                    </span>
-                  </label>
-                </li>
-                <li>
-                  <label className="flex items-center">
-                    <input
-                      type="checkbox"
-                      className="form-checkbox"
-                      checked={salaryRanges.range3}
-                      onChange={() =>
-                        setSalaryRanges((prev) => ({
-                          ...prev,
-                          range3: !prev.range3,
-                        }))
-                      }
-                    />
-                    <span className="text-sm text-gray-600 ml-2">
-                      &gt; $100
-                    </span>
-                  </label>
-                </li>
-              </ul>
+                </div>
+                <div className="text-sm text-gray-400 italic ml-2">
+                  {sponsorship ? "On" : "Off"}
+                </div>
+              </div>
             </div>
             {/* Location */}
             <div>

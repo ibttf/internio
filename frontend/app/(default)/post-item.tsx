@@ -19,25 +19,44 @@ export default function PostItem({ ...props }) {
         return "bg-gray-300";
     }
   };
-
-  const tailwindColors = [
-    "bg-red-500",
-    "bg-blue-500",
-    "bg-yellow-500",
-    "bg-green-500",
-    "bg-indigo-500",
-    "bg-purple-500",
-    "bg-pink-500",
-  ];
-
-  const getRandomColor = () => {
-    const randomIndex = Math.floor(Math.random() * tailwindColors.length);
-    return tailwindColors[randomIndex];
+  const charToBackgroundColor = {
+    A: "bg-red-500",
+    B: "bg-blue-500",
+    C: "bg-yellow-500",
+    D: "bg-green-500",
+    E: "bg-indigo-500",
+    F: "bg-purple-500",
+    G: "bg-red-500", // Repeats after F
+    H: "bg-blue-500", // Repeats after G
+    I: "bg-yellow-500", // Repeats after H
+    J: "bg-green-500", // Repeats after I
+    K: "bg-indigo-500", // Repeats after J
+    L: "bg-purple-500", // Repeats after K
+    M: "bg-red-500", // Repeats after L
+    N: "bg-blue-500", // Repeats after M
+    O: "bg-yellow-500", // Repeats after N
+    P: "bg-green-500", // Repeats after O
+    Q: "bg-indigo-500", // Repeats after P
+    R: "bg-purple-500", // Repeats after Q
+    S: "bg-red-500", // Repeats after R
+    T: "bg-blue-500", // Repeats after S
+    U: "bg-yellow-500", // Repeats after T
+    V: "bg-green-500", // Repeats after U
+    W: "bg-indigo-500", // Repeats after V
+    X: "bg-purple-500", // Repeats after W
+    Y: "bg-red-500", // Repeats after X
+    Z: "bg-blue-500", // Repeats after Y
+  };
+  const getRandomColor = (companyName: string): string => {
+    const firstChar = companyName.charAt(0).toUpperCase();
+    return (
+      (charToBackgroundColor as Record<string, string>)[firstChar] ||
+      "bg-gray-500"
+    );
   };
   return (
     <div className={`group border-b ${!props.sticky && "border-gray-200"}`}>
-      <div className="px-6 py-6 bg-indigo-100 hover:bg-indigo-200 transition duration-300 ease-in-out rounded-lg shadow-md relative">
-        {/* Date in top right corner */}
+      <div className="px-4 md:px-6 py-4 md:py-6 bg-indigo-100 hover:bg-indigo-200 transition duration-300 ease-in-out rounded-lg shadow-md relative">
         <div className="absolute top-3 right-3 text-sm text-gray-400">
           Posted: {props.date}
         </div>
@@ -54,7 +73,9 @@ export default function PostItem({ ...props }) {
               />
             ) : (
               <div
-                className={`w-16 h-16 flex items-center justify-center text-white text-xl font-bold rounded-full ${getRandomColor()}`}
+                className={`w-16 h-16 flex items-center justify-center text-white text-xl font-bold rounded-full ${getRandomColor(
+                  props.company[0]
+                )}`}
               >
                 {props.company[0]}
               </div>
