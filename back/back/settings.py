@@ -12,7 +12,18 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
+from dotenv import load_dotenv
 
+# Calculate the path to the .env file
+base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+env_path = os.path.join(base_dir, '.env')
+
+# Load .env file
+load_dotenv(dotenv_path=env_path)
+test_secret_key = os.environ.get('DB_NAME')
+print(f"SECRET_KEY from .env: {test_secret_key}")
+
+print(f"Attempting to load .env from: {env_path}")
 
 
 
@@ -99,10 +110,12 @@ WSGI_APPLICATION = "back.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
+print("db name", os.environ.get('DB_HOST', 'localhost'))
+print("db name real",  os.environ.get('DB_NAME'),)
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+
         'HOST': os.environ.get('DB_HOST', 'localhost'),
         'NAME': os.environ.get('DB_NAME'),
         'USER': os.environ.get('DB_USER'),
