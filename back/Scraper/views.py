@@ -263,8 +263,12 @@ def delete_email(request, email):
         return Response(status=status.HTTP_204_NO_CONTENT)
     except Emails.DoesNotExist:
         return Response({"error": "Email not found."}, status=status.HTTP_404_NOT_FOUND)
+
+
 @shared_task
 def scrape_and_create_job():
+        
+        #SCRAPING FROM SIMPLIFY
         word_categories={
         "intern": "Internship",
         "co-op": "Co-op",

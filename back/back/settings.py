@@ -21,9 +21,6 @@ env_path = os.path.join(base_dir, '.env')
 # Load .env file
 load_dotenv(dotenv_path=env_path)
 test_secret_key = os.environ.get('DB_NAME')
-print(f"SECRET_KEY from .env: {test_secret_key}")
-
-print(f"Attempting to load .env from: {env_path}")
 
 
 
@@ -40,7 +37,8 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ["https://3.129.71.15/","https://ec2-3-129-71-15.us-east-2.compute.amazonaws.com/"]
+ALLOWED_HOSTS = ["3.129.71.15", "ec2-3-129-71-15.us-east-2.compute.amazonaws.com"]
+
 # Celery configurations
 CELERY_BROKER_URL = 'redis://redis:6379/0'
 CELERY_RESULT_BACKEND = 'redis://redis:6379/0'
@@ -110,13 +108,11 @@ WSGI_APPLICATION = "back.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-print("db name", os.environ.get('DB_HOST', 'localhost'))
-print("db name real",  os.environ.get('DB_NAME'),)
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
 
-        'HOST': os.environ.get('DB_HOST', 'localhost'),
+        'HOST': os.environ.get('DB_HOST'),
         'NAME': os.environ.get('DB_NAME'),
         'USER': os.environ.get('DB_USER'),
         'PASSWORD': os.environ.get('DB_PASS'),

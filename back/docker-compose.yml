@@ -5,14 +5,12 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-
     ports:
       - "443:443"
     volumes:
       - .:/back
     command: >
-      sh -c "python3 manage.py migrate && python3 manage.py wait_for_db && python3 manage.py runserver 0.0.0.0:443"
-
+      sh -c "python3 manage.py wait_for_db && python3 manage.py migrate && python3 manage.py runserver 0.0.0.0:443"
     depends_on:
       - db
       - redis
@@ -21,6 +19,8 @@ services:
 
   db:
     image: postgres:13
+    volumes:
+      - pg_data:/var/lib/postgresql/data
     env_file:
       - ./.env
     ports:
@@ -30,7 +30,6 @@ services:
     restart: always
     build:
       context: .
-
     command: celery -A back worker --loglevel=info
     volumes:
       - .:/back
@@ -41,4 +40,10 @@ services:
       - redis
 
   redis:
-    image: redis:latest
+    image: redis:6.2 # Pinning a version for stability
+    volumes:
+      - redis_data:/data
+
+volumes:
+  pg_data:
+  redis_data:
