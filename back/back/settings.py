@@ -20,7 +20,6 @@ env_path = os.path.join(base_dir, '.env')
 
 # Load .env file
 load_dotenv(dotenv_path=env_path)
-test_secret_key = os.environ.get('DB_NAME')
 
 
 
@@ -37,7 +36,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ["3.129.71.15", "ec2-3-129-71-15.us-east-2.compute.amazonaws.com"]
+ALLOWED_HOSTS = ["3.129.71.15", "ec2-3-129-71-15.us-east-2.compute.amazonaws.com", "internio-backend.com","www.internio-backend.com"]
 
 # Celery configurations
 CELERY_BROKER_URL = 'redis://redis:6379/0'

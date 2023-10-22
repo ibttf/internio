@@ -1,28 +1,18 @@
+
+from celery import shared_task
+from django.http import JsonResponse
+from rest_framework import status
+import requests
+from bs4 import BeautifulSoup
+import re
+import os
 from .models import JobListings
 from .serializers import JobListingSerializer
-from .models import Emails
-from .serializers import EmailSerializer 
-from bs4 import BeautifulSoup
-import os
-import re
-import requests
-from django.http.response import JsonResponse
-from rest_framework import status
-from rest_framework.response import Response
-from rest_framework.decorators import api_view
-from rest_framework import status
-from celery import shared_task
 
-
-@api_view(['GET', 'POST'])
-def get_job_listings(request):
-    if request.method == 'GET':
-        jobs = JobListings.objects.all()
-        serializer = JobListingSerializer(jobs, many=True)
-
-
-        return Response(serializer.data, status=status.HTTP_200_OK, content_type='application/json')
-    else:
+@shared_task
+def scrape_and_create_job():
+        
+        #SCRAPING FROM SIMPLIFY
         word_categories={
         "intern": "Internship",
         "co-op": "Co-op",
@@ -73,11 +63,12 @@ def get_job_listings(request):
             # COMPANY NAME HANDLING
             company = cols[0].get_text(strip=True)
 
-
-
             #JOB TITLE HANDLING
             #check if requires sponsorship
             job_title = cols[1].get_text(strip=True)
+            company_requires_sponsorship=False
+
+
             #CATEGORIES HANDLING
             categories=[]
             for key in word_categories:
@@ -89,7 +80,6 @@ def get_job_listings(request):
 
 
 
-            company_requires_sponsorship=False
             if "🛂" in job_title:
                 # this line of code isn't working for some reason. It's not reupdating the value of the company_requires_sponsorship variable.
                 job_title=job_title.replace("🛂","")
@@ -235,31 +225,3 @@ def get_job_listings(request):
         else:
             return JsonResponse({"message": f"{len(failed_creations)} job listings failed to be created.", "details": failed_creations}, status=status.HTTP_400_BAD_REQUEST)
 
-
-
-
-# Handle the GET and POST requests
-@api_view(['GET', 'POST'])
-def get_or_create_email(request):
-    if request.method == 'GET':
-        emails = Emails.objects.all()
-        serializer = EmailSerializer(emails, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK, content_type='application/json')
-    
-    elif request.method == 'POST':
-        # Create a new email record
-        serializer = EmailSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED, content_type='application/json')
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST, content_type='application/json')
-
-# Handle the DELETE request
-@api_view(['DELETE'])
-def delete_email(request, email):
-    try:
-        email_instance = Emails.objects.get(email=email)
-        email_instance.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
-    except Emails.DoesNotExist:
-        return Response({"error": "Email not found."}, status=status.HTTP_404_NOT_FOUND)

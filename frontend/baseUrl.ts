@@ -1,2 +1,2 @@
-const config = { baseUrl: "http://3.129.71.15:8000" };
+const config = { baseUrl: "https://3.129.71.15" };
 export default config;
