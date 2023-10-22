@@ -27,7 +27,6 @@ services:
       - /etc/letsencrypt:/etc/letsencrypt
     depends_on:
       - back
-
   db:
     image: postgres:13
     volumes:
