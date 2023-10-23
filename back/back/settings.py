@@ -36,8 +36,16 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ["3.129.71.15", "ec2-3-129-71-15.us-east-2.compute.amazonaws.com", "internio-backend.com","www.internio-backend.com"]
+# PROD
+# ALLOWED_HOSTS = ["3.129.71.15", "ec2-3-129-71-15.us-east-2.compute.amazonaws.com", "internio-backend.com", "www.internio-backend.com"]
+# DEV
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '0.0.0.0']
 
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SECURE_SSL_REDIRECT=False
+SESSION_COOKIE_SECURE=False
+CSRF_COOKIE_SECURE=False
+ 
 # Celery configurations
 CELERY_BROKER_URL = 'redis://redis:6379/0'
 CELERY_RESULT_BACKEND = 'redis://redis:6379/0'
@@ -111,7 +119,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
 
-        'HOST': os.environ.get('DB_HOST'),
+        'HOST': os.environ.get('DB_HOST', 'localhost'),
+        # 'HOST': 'localhost',
         'NAME': os.environ.get('DB_NAME'),
         'USER': os.environ.get('DB_USER'),
         'PASSWORD': os.environ.get('DB_PASS'),
