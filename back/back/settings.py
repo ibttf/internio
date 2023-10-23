@@ -37,9 +37,8 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 DEBUG = False
 
 # PROD
-# ALLOWED_HOSTS = ["3.129.71.15", "ec2-3-129-71-15.us-east-2.compute.amazonaws.com", "internio-backend.com", "www.internio-backend.com"]
 # DEV
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '0.0.0.0']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '0.0.0.0',"3.129.71.15", "ec2-3-129-71-15.us-east-2.compute.amazonaws.com", "internio-backend.com", "www.internio-backend.com"   ]
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 SECURE_SSL_REDIRECT=False
@@ -136,7 +135,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST =  'smtp.gmail.com'
 EMAIL_PORT = 587  # Use the appropriate port
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'noreplyinternio@example.com'
+EMAIL_HOST_USER = 'noreplyinternio@gmail.com'
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASS')
 
 

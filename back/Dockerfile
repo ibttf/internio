@@ -15,4 +15,4 @@ COPY . /back
 
 
 # Specify the command to run on container start
-# CMD ["gunicorn", "back.wsgi:application", "--bind", "0.0.0.0:8000"]
+CMD ["gunicorn", "back.wsgi:application", "--bind", "0.0.0.0:8000"]
