@@ -38,7 +38,7 @@ DEBUG = False
 
 # PROD
 # DEV
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '0.0.0.0',"3.129.71.15", "ec2-3-129-71-15.us-east-2.compute.amazonaws.com", "internio-backend.com", "www.internio-backend.com"   ]
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '0.0.0.0',"3.135.236.197", "ec2-3-135-236-197.us-east-2.compute.amazonaws.com", "internio-backend.com", "www.internio-backend.com"   ]
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 SECURE_SSL_REDIRECT=False
