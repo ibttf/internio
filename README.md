@@ -1,6 +1,27 @@
 # Internio
 
-Internio is a monorepo built with Next.js and Django that scrapes different GitHub repositories to get the latest new grad positions and internships. It also connects with an email subscription service to notify subscribers of new opportunities.
+Internio is a full-stack web scraping application designed to help job seekers find the latest new grad positions and internships. By scraping various GitHub repositories, Internio compiles a comprehensive list of opportunities and provides an email subscription service to notify users of these new listings in real time.
+
+Deployed on: [Internio]](https://internio.vercel.app/)
+
+## Features
+
+- Real-time Job Listings: Internio continuously scrapes GitHub repositories to provide the latest job listings, ensuring users don't miss out on new opportunities.
+- Email Subscription: Users can subscribe to receive email notifications, keeping them informed of new postings without having to manually check the platform.
+- Company Insights: Integrated with the Clearbit API to provide additional details about companies, including company information and logos.
+- Responsive Design: Built for a seamless experience across desktop and mobile devices.
+
+## Technologies Used
+- Frontend: NextJS with Typescript
+- Backend: Django
+- Database: Postgres
+- Asynchronous Tasks: Celery with Redis
+- Web Scraping: BeautifulSoup
+- Containerization: Docker
+- Deployment: AWS EC2
+- Web Server: Nginx
+- Other Integrations: Clearbit API for company details
+
 
 ## Getting Started
 
@@ -21,14 +42,7 @@ Internio scrapes job postings from the following GitHub repositories:
 
 To subscribe to email notifications, visit the Internio website and enter your email address.
 
-## Contributing
-
-If you'd like to contribute to Internio, please follow these steps:
-
-1. Fork the repository
-2. Create a new branch with your changes
-3. Submit a pull request
-
-## License
-
-Internio is licensed under the MIT License. See LICENSE for more information.
+## Future Enhancements
+- User Profiles: Allow users to create profiles to save job listings of interest.
+- Filtering & Search: Implement advanced filtering options for users to narrow down job listings based on criteria like location, job type, or company.
+- Analytics: Track the most popular job listings and provide insights on trending opportunities.
