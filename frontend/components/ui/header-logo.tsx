@@ -1,13 +1,46 @@
-import Link from 'next/link'
-import {PiBracketsAngleBold} from "react-icons/pi"
+import Link from "next/link";
 
 export default function HeaderLogo() {
   return (
     <Link href="/" aria-label="Cruip" className="flex items-center">
-      <PiBracketsAngleBold size={40}/>
-      <p className="ml-2 font-bold text-3xl">
-        Internio
-      </p>
+      <svg
+        version="1.0"
+        xmlns="http://www.w3.org/2000/svg"
+        width="40.000000pt"
+        height="40.000000pt"
+        viewBox="0 0 140.000000 124.000000"
+        preserveAspectRatio="xMidYMid meet"
+      >
+        <g
+          transform="translate(0.000000,124.000000) scale(0.100000,-0.100000)"
+          fill="#6366f1"
+          stroke="none"
+        >
+          <path
+            d="M270 1129 c-61 -24 -60 -12 -60 -490 l0 -436 26 -27 27 -26 442 0
+442 0 24 26 24 26 3 426 c2 284 -1 435 -8 452 -23 55 -20 55 -475 57 -262 1
+-429 -2 -445 -8z m420 -139 l0 -40 -190 0 -190 0 0 40 0 40 190 0 190 0 0 -40z
+m400 0 l0 -40 -50 0 -50 0 0 40 0 40 50 0 50 0 0 -40z m10 -435 l0 -295 -395
+0 -395 0 0 295 0 295 395 0 395 0 0 -295z"
+          />
+          <path
+            d="M720 768 c-1 -13 -22 -110 -48 -215 l-48 -193 27 0 c26 0 27 3 73
+193 25 105 49 202 52 215 6 19 3 22 -25 22 -25 0 -31 -4 -31 -22z"
+          />
+          <path
+            d="M468 683 c-95 -64 -98 -67 -98 -104 0 -37 3 -40 88 -97 48 -32 93
+-62 100 -66 9 -5 12 3 12 32 0 38 -2 41 -70 81 -38 23 -70 45 -70 49 0 4 32
+25 70 46 70 40 70 40 70 83 0 24 -1 43 -2 42 -2 0 -47 -30 -100 -66z"
+          />
+          <path
+            d="M840 703 c0 -38 2 -41 70 -79 38 -21 70 -41 70 -44 0 -3 -31 -25 -70
+-49 -68 -41 -70 -44 -70 -82 0 -30 3 -38 13 -33 6 4 51 34 100 66 83 56 87 60
+87 96 0 36 -4 39 -92 97 -50 33 -95 62 -99 63 -5 2 -9 -14 -9 -35z"
+          />
+        </g>
+      </svg>
+
+      <p className="ml-2 font-bold text-3xl text-indigo-500">Internio</p>
     </Link>
-  )
+  );
 }

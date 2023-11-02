@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Illustration from "@/public/images/hero-illustration.svg";
 import UnsubscribeNewsletter from "./unsubscribe-newsletter";
+
 export default function UnsubscribeHero() {
   return (
     <section className="relative flex items-center justify-center h-full">
