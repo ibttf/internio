@@ -10,7 +10,7 @@ services:
     volumes:
       - .:/back
     command: >
-      sh -c "python3 manage.py wait_for_db && python3 manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+      sh -c "python3 manage.py wait_for_db && python3 manage.py migrate && gunicorn back.wsgi:application --bind 0.0.0.0:8000"
     depends_on:
       - db
       - redis
