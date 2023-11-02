@@ -2,7 +2,7 @@
 
 Internio is a full-stack web scraping application designed to help job seekers find the latest new grad positions and internships. By scraping various GitHub repositories, Internio compiles a comprehensive list of opportunities and provides an email subscription service to notify users of these new listings in real time.
 
-Deployed on: [Internio]](https://internio.vercel.app/)
+Deployed on: [Internio](https://internio.vercel.app/)
 
 ## Features
 
@@ -12,6 +12,7 @@ Deployed on: [Internio]](https://internio.vercel.app/)
 - Responsive Design: Built for a seamless experience across desktop and mobile devices.
 
 ## Technologies Used
+
 - Frontend: NextJS with Typescript
 - Backend: Django
 - Database: Postgres
@@ -21,7 +22,6 @@ Deployed on: [Internio]](https://internio.vercel.app/)
 - Deployment: AWS EC2
 - Web Server: Nginx
 - Other Integrations: Clearbit API for company details
-
 
 ## Getting Started
 
@@ -43,6 +43,7 @@ Internio scrapes job postings from the following GitHub repositories:
 To subscribe to email notifications, visit the Internio website and enter your email address.
 
 ## Future Enhancements
+
 - User Profiles: Allow users to create profiles to save job listings of interest.
 - Filtering & Search: Implement advanced filtering options for users to narrow down job listings based on criteria like location, job type, or company.
 - Analytics: Track the most popular job listings and provide insights on trending opportunities.
