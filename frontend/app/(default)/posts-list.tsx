@@ -61,57 +61,17 @@ export default function PostsList() {
     setSponsorship(false);
   };
 
-  useEffect(() => {
-    async function fetchPosts() {
-      const res = await getAllPosts();
-      const data = await res;
-      // Sort the posts by date, including year in the comparison
-      const sortedData = data.sort((a: Post, b: Post) => {
-        const monthMapping: { [key: string]: number } = {
-          Jan: 1,
-          Feb: 2,
-          Mar: 3,
-          Apr: 4,
-          May: 5,
-          Jun: 6,
-          Jul: 7,
-          Aug: 8,
-          Sep: 9,
-          Oct: 10,
-          Nov: 11,
-          Dec: 12,
-        };
-        // Splitting the date string to extract month and year
-        let [monthStrA, yearA] = a.date.split(" ");
-        let [monthStrB, yearB] = b.date.split(" ");
-
-        let monthA = monthMapping[monthStrA];
-        let monthB = monthMapping[monthStrB];
-
-        // Creating date objects using year from the date string and converting them to milliseconds
-        let timeA = new Date(parseInt(yearA), monthA - 1).getTime();
-        let timeB = new Date(parseInt(yearB), monthB - 1).getTime();
-
-        // Subtracting the milliseconds to get the difference and sort accordingly
-        return timeB - timeA;
-      });
-
-      setPosts(sortedData);
-    }
-    fetchPosts();
-  }, []);
-
   // useEffect(() => {
   //   async function fetchPosts() {
   //     const res = await getAllPosts();
   //     const data = await res;
-  //     // Sort the posts by date
+  //     // Sort the posts by date, including year in the comparison
   //     const sortedData = data.sort((a: Post, b: Post) => {
   //       const monthMapping: { [key: string]: number } = {
-  //         Jan: 1,
-  //         Feb: 2,
-  //         Mar: 3,
-  //         Apr: 4,
+  //         Jan: 13,
+  //         Feb: 14,
+  //         Mar: 15,
+  //         Apr: 16,
   //         May: 5,
   //         Jun: 6,
   //         Jul: 7,
@@ -121,40 +81,81 @@ export default function PostsList() {
   //         Nov: 11,
   //         Dec: 12,
   //       };
+  //       // Splitting the date string to extract month and year
+  //       console.log(a.date, b.date);
   //       let [monthStrA, dayA] = a.date.split(" ");
-  //       if (dayA === "2023" || dayA==="2024") {
-  //         dayA = "01";
-  //       }
-  //       let [monthStrB, dayB] = b.date.split(" ");
-  //       if (dayB === "2023" || dayB === "2024") {
-  //         dayB = "01";
-  //       }
+  //       let [monthStrB, ] = b.date.split(" ");
+
   //       let monthA = monthMapping[monthStrA];
   //       let monthB = monthMapping[monthStrB];
-  //       let dateA = new Date(
-  //         new Date().getFullYear(),
-  //         monthA - 1,
-  //         parseInt(dayA)
-  //       );
-  //       let dateB = new Date(
-  //         new Date().getFullYear(),
-  //         monthB - 1,
-  //         parseInt(dayB)
-  //       );
-  //       if (dateA > dateB) {
-  //         return -1;
-  //       } else if (dateA < dateB) {
-  //         return 1;
-  //       } else {
-  //         return 0;
-  //       }
-  //       return dateA.getTime() - dateB.getTime();
+
+  //       // Creating date objects using year from the date string and converting them to milliseconds
+  //       let timeA = new Date(parseInt(yearA), monthA - 1).getTime();
+  //       let timeB = new Date(parseInt(yearB), monthB - 1).getTime();
+
+  //       // Subtracting the milliseconds to get the difference and sort accordingly
+  //       return timeB - timeA;
   //     });
 
   //     setPosts(sortedData);
   //   }
   //   fetchPosts();
   // }, []);
+
+  useEffect(() => {
+    async function fetchPosts() {
+      const res = await getAllPosts();
+      const data = await res;
+      // Sort the posts by date
+      const sortedData = data.sort((a: Post, b: Post) => {
+        const monthMapping: { [key: string]: number } = {
+          Jan: 13,
+          Feb: 14,
+          Mar: 15,
+          Apr: 16,
+          May: 5,
+          Jun: 6,
+          Jul: 7,
+          Aug: 8,
+          Sep: 9,
+          Oct: 10,
+          Nov: 11,
+          Dec: 12,
+        };
+        let [monthStrA, dayA] = a.date.split(" ");
+        if (dayA === "2023" || dayA === "2024") {
+          dayA = "01";
+        }
+        let [monthStrB, dayB] = b.date.split(" ");
+        if (dayB === "2023" || dayB === "2024") {
+          dayB = "01";
+        }
+        let monthA = monthMapping[monthStrA];
+        let monthB = monthMapping[monthStrB];
+        let dateA = new Date(
+          new Date().getFullYear(),
+          monthA - 1,
+          parseInt(dayA)
+        );
+        let dateB = new Date(
+          new Date().getFullYear(),
+          monthB - 1,
+          parseInt(dayB)
+        );
+        if (dateA > dateB) {
+          return -1;
+        } else if (dateA < dateB) {
+          return 1;
+        } else {
+          return 0;
+        }
+        return dateA.getTime() - dateB.getTime();
+      });
+
+      setPosts(sortedData);
+    }
+    fetchPosts();
+  }, []);
   function filterPosts(post: Post): boolean {
     // Check if the post matches the remote job condition
     if (remoteJob && !post.locations.includes("Remote")) {
@@ -245,7 +246,7 @@ export default function PostsList() {
             {/* List container with flex properties */}
             <div className="flex flex-wrap space-y-2">
               {filteredPosts.map((post: Post) => {
-                console.log(post);
+                // console.log(post);
                 return (
                   <div key={post.id} className="w-full">
                     <PostItem {...post} />
