@@ -7,7 +7,8 @@ export default function UnsubscribeNewsletter() {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
 
-  async function handleUnsubscribe() {
+  async function handleUnsubscribe(e: any) {
+    e.preventDefault();
     try {
       const response = await fetch(`${config.baseUrl}/emails/${email}`, {
         method: "DELETE",
@@ -37,7 +38,7 @@ export default function UnsubscribeNewsletter() {
             aria-label="Your email"
           />
           <button
-            onClick={() => handleUnsubscribe()}
+            onClick={(e) => handleUnsubscribe(e)}
             className="btn-sm text-white bg-indigo-500 hover:bg-indigo-600 shadow-sm whitespace-nowrap"
           >
             Unsubscribe
