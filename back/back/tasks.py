@@ -9,6 +9,15 @@ import os
 from .models import JobListings
 from .serializers import JobListingSerializer
 
+
+
+@shared_task
+def send_post_request():
+    url = 'https://internio-backend.com/joblistings'
+    response = requests.post(url)
+    return response.status_code
+
+
 @shared_task
 def scrape_and_create_job():
         
