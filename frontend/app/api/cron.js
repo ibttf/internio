@@ -1,15 +1,12 @@
 import fetch from "node-fetch";
 
 export default async function handler(req, res) {
-  const response = await fetch(
-    "https://www.internio-backend.com/job-listings",
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
-  );
+  const response = await fetch("https://www.internio-backend.com/joblistings", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
 
   if (response.ok) {
     res.status(200).end("Updated job listings!");
