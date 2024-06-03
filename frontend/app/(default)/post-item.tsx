@@ -85,7 +85,11 @@ export default function PostItem({ ...props }) {
             {props.company_link ? (
               <Link
                 className="text-xl font-semibold text-blue-600 hover:underline"
-                href={`${props.company_link}`}
+                href={
+                  props.company_link.startsWith("http")
+                    ? props.company_link
+                    : `http://${props.company_link}`
+                }
               >
                 {props.company}
               </Link>
